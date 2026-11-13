@@ -1,0 +1,208 @@
+{
+  "schema_version": 1,
+  "version": "1.0.0",
+  "generated": "2026-11-13",
+  "note": "空白母版，不含业务数据。占位符与公式仅用于演示版式和计算；项目特定口径不在此公开目录。",
+  "placeholders": [
+    "【项目名称】",
+    "【批次】",
+    "【补偿类别】",
+    "【建设单位】",
+    "【审核日期】",
+    "【文号】",
+    "【送审金额】",
+    "【审核金额】",
+    "【核减金额】",
+    "【主管部门】"
+  ],
+  "items": [
+    {
+      "path": "templates/土地_青苗竹果木.xlsx",
+      "category": "land_tree",
+      "purpose": "土地、留用地、基础青苗、竹果木补偿审核表（含汇总与明细）",
+      "sha256": "337fbcb15e6e28d717c3f632607abe8b3cee47f051fe53bb73798d4ab24c99ae",
+      "sheets": [
+        {
+          "name": "补偿审核汇总表",
+          "title_cell": "A1",
+          "data_rows": "6-8",
+          "total_row": 9,
+          "print_area": "A1:AF9",
+          "header": "无",
+          "note_cell": "A10（打印区域外）"
+        },
+        {
+          "name": "补偿审核明细表",
+          "title_cell": "A1",
+          "data_rows": "6-8",
+          "total_row": 9,
+          "print_area": "A2:AC9, AD2:AT10, AU2:BK11",
+          "print_title_rows": "2:5",
+          "print_title_cols": "A:B",
+          "header": "【项目名称】【批次】土地、青苗及竹果木补偿审核明细表（22号加粗）",
+          "note_cell": "A20（打印区域外）",
+          "key_cells": {
+            "留用地比例输入": "BN2（初始为空）",
+            "送审金额": "K（土地补偿）、N（留用地）、AG（青苗）、AZ（竹果木）",
+            "审核金额": "X、AA、AB（征地及留用地）；AO、AR、AS（青苗）；BF（竹果木）",
+            "补偿合计": "BH（送审）、BI（审核）、BJ（核增减）",
+            "行政村/地类": "BO/BP（汇总元数据，打印区域外）"
+          }
+        }
+      ],
+      "expand": "明细BO列输入行政村、BP列输入地类。扩行后用 land_summary.py --detail-end-row 实际末行 --fill-summary 重建，汇总按行政村与地类双条件取数，不含合计及打印区外说明行。"
+    },
+    {
+      "path": "templates/土地_青苗鱼塘.xlsx",
+      "category": "land_pond",
+      "purpose": "土地、留用地、青苗及鱼塘搬迁补偿审核表；竹果木版块不参与打印",
+      "sha256": "b156d2b882d6cdbbc0c62d29aeebb6ec1bcf900092b76b92e2cec8d44a0cf21a",
+      "sheets": [
+        {
+          "name": "补偿审核汇总表",
+          "title_cell": "A1",
+          "data_rows": "6-8",
+          "total_row": 9,
+          "print_area": "A1:AF9",
+          "header": "无",
+          "note_cell": "A10（打印区域外）"
+        },
+        {
+          "name": "补偿审核明细表",
+          "title_cell": "A1",
+          "data_rows": "6-8",
+          "total_row": 9,
+          "print_area": "A2:AC9, AD2:AT10",
+          "print_title_rows": "2:5",
+          "print_title_cols": "A:B",
+          "header": "【项目名称】【批次】土地、青苗及鱼塘搬迁补偿审核明细表（22号加粗）",
+          "note_cell": "A20（打印区域外）",
+          "key_cells": {
+            "留用地比例输入": "BN2（初始为空）",
+            "审核金额": "X、AA、AB（征地及留用地）；AO、AR、AS（青苗及鱼塘）",
+            "补偿合计": "BH、BI、BJ",
+            "行政村/地类": "BO/BP（汇总元数据，打印区域外）"
+          }
+        }
+      ],
+      "expand": "明细BO列输入行政村、BP列输入地类。扩行后用 land_summary.py --detail-end-row 实际末行 --fill-summary 重建，汇总按行政村与地类双条件取数，不含合计及打印区外说明行。"
+    },
+    {
+      "path": "templates/房屋构建筑物.xlsx",
+      "category": "building",
+      "purpose": "房屋、装修、附属物及构建筑物补偿审核表",
+      "sha256": "7cbbb02a5f8681583ea5f25f4b29ab9adefa910c3cb8ca651808b33c82e576ff",
+      "sheets": [
+        {
+          "name": "补偿审核汇总表",
+          "title_cell": "A1",
+          "data_rows": "4-6",
+          "total_row": 7,
+          "print_area": "A1:H7",
+          "header": "无",
+          "note_cell": "A8（打印区域外）"
+        },
+        {
+          "name": "补偿审核明细表",
+          "title_cell": "A1",
+          "data_rows": "4-6",
+          "total_row": 7,
+          "print_area": "A2:P7",
+          "print_title_rows": "2:3",
+          "header": "【项目名称】【批次】地上构建物补偿审核明细表（22号加粗）",
+          "note_cell": "A8（打印区域外）",
+          "key_cells": {
+            "送审金额": "K",
+            "审核金额": "N（ROUND(L×M,2)）",
+            "核增减": "O",
+            "合计": "K7、N7、O7"
+          }
+        }
+      ],
+      "expand": "总价项目按原金额录入送审金额，不强套数量×单价；扩行后同步合计与汇总引用。"
+    },
+    {
+      "path": "templates/坟墓迁移.xlsx",
+      "category": "grave",
+      "purpose": "坟墓迁移补偿审核表；按行政村汇总并与明细 SUMIFS 关联",
+      "sha256": "4c4a569052b93fda3fe9eb7bb9cdfe19d83210d5a09a32260a26337fb3691e8c",
+      "sheets": [
+        {
+          "name": "坟墓审核汇总表",
+          "title_cell": "A1",
+          "data_rows": "3-5",
+          "total_row": 6,
+          "print_area": "A1:H6",
+          "header": "无",
+          "note_cell": "A7（打印区域外）",
+          "key_cells": {
+            "行政村": "B3:B5（输入）",
+            "送审穴数": "C3:C5 = SUMIFS(明细!G$4:G$6, 明细!$N$4:$N$6, $B行)",
+            "送审金额": "D3:D5（同法取 I 列）",
+            "审核穴数": "E3:E5（取 J 列）",
+            "审核金额": "F3:F5（取 L 列）",
+            "核增减": "G3:G5（取 M 列）"
+          }
+        },
+        {
+          "name": "坟墓审核明细表",
+          "title_cell": "A1",
+          "data_rows": "4-6",
+          "total_row": 7,
+          "print_area": "A2:N7",
+          "print_title_rows": "2:3",
+          "header": "【项目名称】【批次】坟墓迁移补偿审核明细表（22号加粗）",
+          "note_cell": "A8（打印区域外）",
+          "key_cells": {
+            "行政村": "N4:N6（新增列，末列；汇总 SUMIFS 依据）",
+            "审核金额": "L（ROUND(J×K,2)）",
+            "核增减": "M"
+          }
+        }
+      ],
+      "expand": "扩行时同时扩展明细合计行与汇总 SUMIFS 的行范围（G/I/J/L/M 与 $N$）；行政村按明细实际填写，不得把整批合计复制到每个村。"
+    },
+    {
+      "path": "templates/资料符合性核查表.xlsx",
+      "category": "materials",
+      "purpose": "征地拆迁资料符合性核查表（收件载体与内容待核分开）",
+      "sha256": "ed708abfe264fe08b893b396f8b83f9b89bc768ff5eebe26e7bb68ec58f304ad",
+      "sheets": [
+        {
+          "name": "资料符合性核查表",
+          "title_cell": "A1（项目名称）、A2（批次/审核日期）、A3（补偿项目）",
+          "print_area": "A1:F74",
+          "print_title_rows": "1:6",
+          "header": "资料符合性核查表",
+          "note_cell": "A76（打印区域外）"
+        }
+      ],
+      "expand": "范围外类别整行隐藏，不删除；“（四）【主管部门】下发的汇总表”为固定标题，本批具体表名写在其下第一项。"
+    },
+    {
+      "path": "templates/审核意见.docx",
+      "category": "opinion_audit",
+      "purpose": "完整审核意见空白稿：封面、第二页金额及大写、项目情况、合规性、金额结论、附表、日期",
+      "sha256": "ab38831c820c3af09c2ab246426e4e27aa557c187f7be6795868c2f6c20beb78",
+      "structure": {
+        "pages": 4,
+        "cover": "【项目名称】/【批次】/【补偿类别】补偿审核意见/审 核 报 告/【审核日期】",
+        "amount_page": "建设单位、送审/审核/核减金额（大写与￥数额均带下划线）、签章、日期",
+        "body": "标题、受托句、一、项目基本情况、二、审核依据、三、审核意见（合规性审查、补偿费用审核）、四、其他需说明事项、附表、日期",
+        "fonts": "标题黑体加粗，正文仿宋，金额行下划线保留"
+      }
+    },
+    {
+      "path": "templates/初审意见.docx",
+      "category": "opinion_initial",
+      "purpose": "初审意见空白稿：标题＋编号意见＋日期，不设金额页",
+      "sha256": "5487942a8ff335e9c307b851f17cd65bc0a9aca90d510461cdeba71e7a058a35",
+      "structure": {
+        "pages": 1,
+        "title": "【项目名称】【批次】【补偿类别】补偿初审意见（宋体14加粗居中）",
+        "items": "3 条编号占位，仿宋14，首行缩进，1.5 倍行距",
+        "date": "右下【审核日期】"
+      }
+    }
+  ]
+}

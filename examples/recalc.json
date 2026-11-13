@@ -1,0 +1,17 @@
+{
+  "amount_quantum": "0.01",
+  "quantity_quantum": "0.0001",
+  "quantity_factor": "1",
+  "order": "AMOUNT_ONLY",
+  "rows": [
+    {
+      "id": "合成行A",
+      "quantity": "1.2345",
+      "price": "100",
+      "amount": "123.45",
+      "source_refs": [
+        "合成数据"
+      ]
+    }
+  ]
+}

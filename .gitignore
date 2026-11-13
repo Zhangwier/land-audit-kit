@@ -1,0 +1,8 @@
+.local/
+__pycache__/
+*.pyc
+.venv/
+dist/
+*.partial.md
+*.meta.json
+~$*

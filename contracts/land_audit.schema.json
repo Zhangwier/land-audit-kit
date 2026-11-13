@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "land_audit.schema.json",
+  "title": "征拆逐项审核记录；不证明业务真实性",
+  "type": "object",
+  "required": ["schema_version", "meta", "sources", "policies", "objects", "checks", "fees", "issues"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "meta": {"type":"object", "required":["project_id","mode","stage","scope_basis","rounding_basis"], "properties": {
+      "project_id":{"$ref":"#/$defs/text"}, "mode":{"enum":["FULL","DOCUMENT","ARITHMETIC","POLICY"]},
+      "stage":{"enum":["INITIAL","PAYMENT","SETTLEMENT"]}, "scope_basis":{"type":"string"}, "rounding_basis":{"type":"string"}
+    }, "additionalProperties":false},
+    "sources": {"type":"array","items":{"type":"object","required":["source_id","path","sha256","role","version"],"properties":{
+      "source_id":{"$ref":"#/$defs/text"},"path":{"$ref":"#/$defs/text"},"sha256":{"type":"string","pattern":"^[a-f0-9]{64}$"},"role":{"$ref":"#/$defs/text"},"version":{"$ref":"#/$defs/text"}
+    },"additionalProperties":false}},
+    "policies": {"type":"array","items":{"type":"object","required":["policy_id","title","status","region_basis","time_basis","subject_basis","adoption_basis","source_refs"],"properties":{
+      "policy_id":{"$ref":"#/$defs/text"},"title":{"$ref":"#/$defs/text"},"status":{"enum":["APPLICABLE","PENDING","NOT_APPLICABLE"]},"region_basis":{"type":"string"},"time_basis":{"type":"string"},"subject_basis":{"type":"string"},"adoption_basis":{"type":"string"},"source_refs":{"$ref":"#/$defs/refs"}
+    },"additionalProperties":false}},
+    "objects": {"type":"array","minItems":1,"items":{"type":"object","required":["object_id","object_name","modules","source_refs"],"properties":{
+      "object_id":{"$ref":"#/$defs/text"},"object_name":{"$ref":"#/$defs/text"},"modules":{"type":"array","minItems":1,"uniqueItems":true,"items":{"enum":["land","crop","tree","pond","building","decoration","ancillary","grave","facility","business","payment"]}},
+      "source_refs":{"$ref":"#/$defs/refs"},"batch":{"type":"string"},"town":{"type":"string"},"village":{"type":"string"},"group":{"type":"string"},"parcel_id":{"type":"string"},"building_id":{"type":"string"},"floor":{"type":"string"},"parent_id":{"type":"string"},"comment":{"type":"string"}
+    },"additionalProperties":false}},
+    "checks": {"type":"array","items":{"type":"object","required":["object_id","check_id","status","observation","source_refs","evidence_refs","calculation_ref","policy_ids","reason","next_action","reviewed_by","review_round","issue_ids"],"properties":{
+      "object_id":{"$ref":"#/$defs/text"},"check_id":{"$ref":"#/$defs/text"},"status":{"enum":["NOT_STARTED","PASS","FINDING","BLOCKED","NA"]},"observation":{"type":"string"},"source_refs":{"$ref":"#/$defs/refs"},"evidence_refs":{"$ref":"#/$defs/ids"},"calculation_ref":{"type":"string"},"policy_ids":{"$ref":"#/$defs/ids"},"reason":{"type":"string"},"next_action":{"type":"string"},"reviewed_by":{"type":"string"},"review_round":{"type":"string"},"issue_ids":{"$ref":"#/$defs/ids"}
+    },"additionalProperties":false}},
+    "fees": {"type":"array","items":{"type":"object","required":["fee_id","object_id","category","unit","submitted_amount","calculated_amount","adopted_amount","adjustment_amount","pending_amount","decision","source_refs","calculation_ref","policy_ids","decision_basis","review_ref","issue_ids"],"properties":{
+      "fee_id":{"$ref":"#/$defs/text"},"object_id":{"$ref":"#/$defs/text"},"category":{"$ref":"#/$defs/text"},"unit":{"const":"元"},"submitted_amount":{"$ref":"#/$defs/money"},"calculated_amount":{"$ref":"#/$defs/money"},"adopted_amount":{"$ref":"#/$defs/money"},"adjustment_amount":{"$ref":"#/$defs/money"},"pending_amount":{"$ref":"#/$defs/money"},"decision":{"enum":["PENDING","CONFIRMED","OUT_OF_SCOPE"]},"source_refs":{"$ref":"#/$defs/refs"},"calculation_ref":{"type":"string"},"policy_ids":{"$ref":"#/$defs/ids"},"decision_basis":{"type":"string"},"review_ref":{"type":"string"},"issue_ids":{"$ref":"#/$defs/ids"}
+    },"additionalProperties":false}},
+    "issues": {"type":"array","items":{"type":"object","required":["issue_id","object_id","check_ids","kind","fact_level","observation","source_refs","recommendation","money_effect","fee_ids","status","review_ref","close_reason"],"properties":{
+      "issue_id":{"$ref":"#/$defs/text"},"object_id":{"$ref":"#/$defs/text"},"check_ids":{"$ref":"#/$defs/ids"},"kind":{"$ref":"#/$defs/text"},"fact_level":{"enum":["FACT","CALC","INFERENCE","UNCERTAINTY"]},"observation":{"$ref":"#/$defs/text"},"source_refs":{"$ref":"#/$defs/refs"},"recommendation":{"$ref":"#/$defs/text"},"money_effect":{"enum":["NONE","PENDING","ADJUSTMENT"]},"fee_ids":{"$ref":"#/$defs/ids"},"status":{"enum":["OPEN","RESPONDED","CLOSED","WITHDRAWN"]},"review_ref":{"type":"string"},"close_reason":{"type":"string"}
+    },"additionalProperties":false}}
+  },
+  "$defs": {
+    "text":{"type":"string","minLength":1,"pattern":"\\S"},
+    "ids":{"type":"array","uniqueItems":true,"items":{"$ref":"#/$defs/text"}},
+    "refs":{"type":"array","items":{"type":"object","required":["source_id","loc"],"properties":{"source_id":{"$ref":"#/$defs/text"},"loc":{"$ref":"#/$defs/text"}},"additionalProperties":false}},
+    "money":{"anyOf":[{"type":"null"},{"type":"string","pattern":"^-?(0|[1-9][0-9]*)(\\.[0-9]{1,2})?$"}]}
+  }
+}
