@@ -19,6 +19,8 @@ TOOLS = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(TOOLS))
 import workflow_state as state
 import check_outputs as check
+import print_check
+import pymupdf
 from openpyxl import Workbook
 from docx import Document
 
@@ -171,6 +173,27 @@ class WorkflowTests(TemporaryCase):
         (path.parent / ('~$' + path.name)).write_text('lock')
         self.assertFalse(state.guard(self.run, 'A', path)['allowed'])
 
+    def test_partial_delivery_and_busy_file_keep_table_unfinished(self):
+        self.prepare();self.event('table','running')
+        self.publish('table','audit')
+        with patch.object(state,'exclusive_file',side_effect=OSError('synthetic busy file')):
+            result=self.publish('table','materials')
+        self.assertFalse(result['published'])
+        self.assertEqual(state.status(self.run)['batches'][0]['summary'],'候选稿待交付')
+        with self.assertRaises(ValueError):
+            self.event('table','done',artifacts=[self.outputs['audit']])
+        self.assertTrue(self.publish('table','materials')['readback_verified'])
+        self.event('table','done',artifacts=[self.outputs['audit'],self.outputs['materials']])
+
+    def test_missing_current_readback_receipt_blocks_done(self):
+        self.prepare();self.event('table','running')
+        self.publish('table','audit');self.publish('table','materials')
+        path=self.run/'运行记录.json';data=state.read_json(path)
+        data['batches']['A']['published'][self.outputs['audit']].pop('readback_sha256')
+        state.atomic_json(path,data)
+        with self.assertRaises(ValueError):
+            self.event('table','done',artifacts=[self.outputs['audit'],self.outputs['materials']])
+
     def test_windows_exclusive_handle_prevents_racing_write(self):
         if os.name != 'nt':
             self.skipTest('Windows sharing semantics')
@@ -269,11 +292,23 @@ class CheckTests(TemporaryCase):
         source=Workbook()
         source.active['A2']='地号A'
         source.save(self.source)
-        pdf=self.root/'test.pdf'
-        pdf.write_bytes(b'%PDF-1.4\nmock fixture only')
+        exports=[]
+        for kind, source_path in self.files.items():
+            pdf=self.root/(kind+'.pdf')
+            with pymupdf.open() as document:
+                page=document.new_page(width=595.28,height=841.89)
+                page.insert_text((40,70),'Registered synthetic output',fontsize=12)
+                document.save(pdf)
+            exports.append({'kind':kind,'source':source_path,'pdf':str(pdf),'pdf_sha256':check.sha(pdf),
+                            'orientation':'portrait','font_pt':12,'headers':[],'expected_pages':[]})
+        export=self.root/'export.json'
+        write_json(export,{'schema_version':2,'batch':self.batch,'files':self.files,'tool':'synthetic fixture',
+                           'source_hashes':{p:check.sha(p) for p in self.files.values()},'recalculated':True,'exports':exports})
+        inspection=print_check.inspect(export,self.root/'pages')
+        for page in inspection['page_evidence']:
+            page['review']={'reviewer':'synthetic test reviewer','checks':{k:True for k in print_check.VISUAL_CHECKS}}
         self.print_report = self.root/'print.json'
-        write_json(self.print_report, {'tool':'mock fixture','source_hashes':{p:check.sha(p) for p in self.files.values()},
-            'recalculated':True,'pages_checked':True,'no_blank_pages':True,'no_orphan_total_or_date':True,'pdfs':[str(pdf)]})
+        write_json(self.print_report,inspection)
         self.config={'batch':self.batch,'files':self.files,'stage':'initial',
             'money':[{'key':key,'value':value,'locations':[{'file':'audit','sheet':'汇总','cell':cell}]} for key,value,cell in [('submitted','100.00','B3'),('audited','100.00','C3'),('delta','0.00','D3')]],
             'formulas':[{'file':'audit','sheet':'明细','ranges':['D3:D3'],'submitted_columns':['E']}],
@@ -349,6 +384,26 @@ class CheckTests(TemporaryCase):
         self.config['stage']='payment'
         self.assertEqual(self.result()['overall'],'unverified')
 
+    def test_formal_opinion_lists_and_policy_citations(self):
+        paragraphs = [
+            self.batch+'补偿的审核意见', '一、项目基本情况',
+            '（一）征地及留用地补偿为100.00元。', '二、审核依据',
+            '1.《合成项目补偿办法》', '三、审核意见', '（一）合规性审查',
+            '1.请补充开户资料。', '（二）补偿费用审核',
+            '1.重复列入一笔费用，审核予以核减。', '四、其他需说明事项',
+            '1.补充转账凭证。', '附表：', '1.合成补偿审核表'
+        ]
+        self.assertEqual(check.opinion_entries(paragraphs), [(8,paragraphs[7]), (10,paragraphs[9])])
+        d=Document()
+        for p in paragraphs:
+            d.add_paragraph(p)
+        d.save(self.files['opinion'])
+        self.config['stage']='payment'
+        self.config['opinion_sources']=[{'paragraph':8,'source':'project'},
+                                         {'paragraph':10,'source':'verified','decision':'confirmed'}]
+        rows=self.result()['results']
+        self.assertFalse(any(r['check'] in {'text','sources'} and r['status'] in {'fail','unverified'} for r in rows))
+
     def test_human_format_changes_only_advisory(self):
         doc=Document(self.files['opinion'])
         doc.paragraphs[1].text='3.本批《土地测绘拼图》未加盖测绘公司公章，请补盖。'
@@ -416,9 +471,10 @@ class CheckTests(TemporaryCase):
         event('verify','done',artifacts=[str(verified)])
         event('review','running')
         self.config['files']=outputs
-        printing=check.load(self.print_report)
-        printing['source_hashes']={p:check.sha(p) for p in outputs.values()}
-        write_json(self.print_report,printing)
+        rebound=self.root/'delivered-print.json'
+        print_check.rebind(self.print_report,outputs,rebound)
+        self.print_report=rebound
+        self.config['print_report']=str(rebound)
         config=self.root/'config.json'
         write_json(config,self.config)
         report=self.root/'actual_check.json'

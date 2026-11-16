@@ -1,45 +1,50 @@
 {
   "schema_version": 1,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "files": [
     {
+      "path": ".gitattributes",
+      "sha256": "e3cb71d188c8ae45730f2b6e1a00b08308e089252b65f4f38ce46bc31184f9fc",
+      "license": "MIT"
+    },
+    {
       "path": ".gitignore",
-      "sha256": "9f62083d15e2980d0338f6462e3794d122c47ae62db7d9fadb8ddba473f60f4d",
+      "sha256": "f61a86175082f8eb3e3e1c0e42dd6fb93b88d79dfa519c97e8bd9359aa353100",
       "license": "MIT"
     },
     {
       "path": "adapters/README.md",
-      "sha256": "c77b1bf24e5749a0be33d2c11fb478ab8c8e1b62345c5b73089876d425c879b7",
+      "sha256": "24afa5a7ed30cece506bd023be0478e0a4de289fa4a2db4832259b14cb227fa2",
       "license": "CC-BY-4.0"
     },
     {
       "path": "AGENTS.md",
-      "sha256": "3e2eb9dca0c62851b6f5d1807f579439b10b535bd76860013981316b07eca126",
+      "sha256": "2c36750a340366dbd5b121b736922f3571ade146ab9d899ddc3f88fd220e6d58",
       "license": "CC-BY-4.0"
     },
     {
       "path": "AI_README.md",
-      "sha256": "64fb83aa845bd460e757099fc7d7677d5913d2e526f7edc54f6767dd5e8c734c",
+      "sha256": "68c8494d3b89a093a84163efde51b88f220b4260c3a543dc920613db3940566c",
       "license": "CC-BY-4.0"
     },
     {
       "path": "AI_START.md",
-      "sha256": "e2173461ced431e6c5ef4e59916940257d951e210f090fb1b802ee49964e8cc9",
+      "sha256": "a602f4d942fbf7c488ced56995f2e53384bbf840e2bd429744754ff8902a0906",
       "license": "CC-BY-4.0"
     },
     {
       "path": "catalog/check_catalog.csv",
-      "sha256": "13e86eba36da7a584c279fef871a48904b78bef96ef6e622a93a105e1c9a5ab0",
+      "sha256": "834260a4b652c95711dbe04b26ced94882cf11a6cd5806aae15515ae417d61ca",
       "license": "CC-BY-4.0"
     },
     {
       "path": "catalog/opinions.md",
-      "sha256": "4358d74ad52cf85ad167d9b003f3f3d11d7ab5b0d84a6427bb6c8a5fab2f40d4",
+      "sha256": "f68f750c48113c47fa45b8ff617e68b7e2618e1b74cf66118e8abd34b090602d",
       "license": "CC-BY-4.0"
     },
     {
       "path": "catalog/opinions_catalog.json",
-      "sha256": "b1abbf268d771b8f6bb42eb681dd49f991f49ae5e8525a76e781ded6364d546a",
+      "sha256": "3af24529a36cd6375f1cc5915440bec4790c98f0ebc1cf174cf29814fa26b343",
       "license": "CC-BY-4.0"
     },
     {
@@ -49,102 +54,107 @@
     },
     {
       "path": "docs/ledger-contract.md",
-      "sha256": "1aab39912d7785746135d556a22a2fff3b0b44c8105ded7c1c23eed29e3d7a90",
+      "sha256": "07b83c39094e25cbf917189273f4c60fbebdc5ce6d3f5789da26d1cb2874a4c2",
       "license": "CC-BY-4.0"
     },
     {
       "path": "docs/lessons.md",
-      "sha256": "a78009a365c74a7786587b71ff8afee892ca47753209ce2107a5a707de2fc584",
+      "sha256": "7e59e4528e70f2a3cd3e2877adc51e812271b6814ca908243dea5970aaa0f131",
+      "license": "CC-BY-4.0"
+    },
+    {
+      "path": "docs/release-v1.1.0.md",
+      "sha256": "18118099b201eff5de04469ea634268488e49087e3c590c773b2837aabb05e05",
       "license": "CC-BY-4.0"
     },
     {
       "path": "docs/tools.md",
-      "sha256": "1964c1f92ec7793f3356b806c83ae574bf546992ca8e2030ed9f07a3a4d25acb",
+      "sha256": "e9c4de962396d0617b39ac6a8d219a8139b8cece7f60d6906c9f209c7f8bcd0a",
       "license": "CC-BY-4.0"
     },
     {
       "path": "docs/validation.md",
-      "sha256": "a6beb323fc2629b77c24f4bc154bc4205159cbdce1256bdb7d13f4ed7ed9c337",
+      "sha256": "add8e0ccea81682697e292619f4e203ba97728d44e6ddd41fa7719ce7bcece72",
       "license": "CC-BY-4.0"
     },
     {
       "path": "examples/objects.csv",
-      "sha256": "95e24175197c64a6ba92357d3b14b619f91f26af61478ecebf27baa39f183bab",
+      "sha256": "a9005a6d15a5fb3e2c6f92e1a3f4e8cea33a36c81f937f30f32bc535975b759b",
       "license": "CC-BY-4.0"
     },
     {
       "path": "examples/README.md",
-      "sha256": "ffef4b32b1c2be37090cb14f4ec32a5d5b9791cc7a4463a9db6f01bd9a188555",
+      "sha256": "859507948597481fb427f59b0423c26e79321e36d10ec42ea96863d2975cb61e",
       "license": "CC-BY-4.0"
     },
     {
       "path": "examples/recalc.json",
-      "sha256": "b776afa7d055caf32a3547b25c0e7c994933e98134bc1378632d154f5dc09acd",
+      "sha256": "7458eb835cc725a7f156fd03bf320b08cb68ca11d9ae77275594e0acf67535e9",
       "license": "CC-BY-4.0"
     },
     {
       "path": "LICENSE-CODE",
-      "sha256": "4c2c88c280f0f64206fac9c6890c80b9ba7bec85ade8692219b49a4cf036464e",
+      "sha256": "6a8048a319d7ce8f18010206cb7e6f871ffe9dda41137bd0d7e073da56cccde5",
       "license": "MIT"
     },
     {
       "path": "LICENSE-CONTENT",
-      "sha256": "4500200b91acb1324538d8e8f9665d5f4142d3f1c5cd9730564cf1895b6170f7",
+      "sha256": "d557539df68e771cc1eedcc91d13f70fca930e508d11eedcafa4b15db49e3744",
       "license": "CC-BY-4.0"
     },
     {
       "path": "README.md",
-      "sha256": "b0d356b3d37977cc9ceeea38816d24e325c5166f68d10647ee216ca2db4f065a",
+      "sha256": "66f097bb4bbb625704adaca9e2dd0278677ab552fda80cd1fce42fa0774b0a97",
       "license": "CC-BY-4.0"
     },
     {
       "path": "requirements.txt",
-      "sha256": "0d2635db455119bb7bdceb2f510a4b959fa16d47ccc21ede4212628420b81c94",
+      "sha256": "642d950e7de93785829f4cec30260865fa7b65a9f72ca50e653426d1cd6c14f6",
       "license": "MIT"
     },
     {
       "path": "roles/Gemini审核提示模板.md",
-      "sha256": "194ff8132a93fccb622b00251b2a5fee1b1bae6b7e69836fec7ce89be71d1973",
+      "sha256": "051dc1e2691623af42aabb41d89cbd8bdc9e0cb2319e9f5fe846523bb56c76c7",
       "license": "CC-BY-4.0"
     },
     {
       "path": "roles/制表员.md",
-      "sha256": "61ed6d0d04b256c177a3fa103b1299b8a587b0716a62a0be29f92742eb0b0ad3",
+      "sha256": "9944a1f5b9ec023fc517b4bc0f8afd48b62014f66f3af00f95f0488ce37af544",
       "license": "CC-BY-4.0"
     },
     {
       "path": "roles/复查员.md",
-      "sha256": "1360c107bfc32a5c6dec827d03e8cdd2e5950215d0442ab4af053824913d63cd",
+      "sha256": "d290f4f036f161265efce334fe1a0585923f397362cb44da74cd9cd1de55bcc1",
       "license": "CC-BY-4.0"
     },
     {
       "path": "roles/意见撰写员.md",
-      "sha256": "455f81f30c2aa573ed77ef2c7a9ed1672e6f2a51f0858b8b18218ed057fd46de",
+      "sha256": "c09302ee5a4673f74c9ed3b54e74e572cdf85d7a70e40ad13cec38ecc08af0b7",
       "license": "CC-BY-4.0"
     },
     {
       "path": "roles/核实员.md",
-      "sha256": "135a6d7e9670cfa8590d400933f61fecfc41530b1c84b7632b2e4e917d3c3cb0",
+      "sha256": "f8942c7a325b96c39efed162d6c2b116c2b907510b9320023330eef6eaceda10",
       "license": "CC-BY-4.0"
     },
     {
       "path": "rules/audit.md",
-      "sha256": "75e094a36ddee06aa2c295eadd9a5449a936dba099c4d9b529f8e134bc3a145a",
+      "sha256": "3947d5a378ee819ace64f87ce66054ea9eaea40c0c50f0e50880c340e904d264",
       "license": "CC-BY-4.0"
     },
     {
       "path": "rules/format.md",
-      "sha256": "956f6fefc6fba648aec7195175343c8bb027e17073f1df89d1b5760b5c26dbf8",
+      "sha256": "7e333ab9f45fcbb510104b07d326bb7d17315d301649fe3c2e0a101e1f623677",
       "license": "CC-BY-4.0"
     },
     {
       "path": "templates/template_manifest.json",
-      "sha256": "e03093cbd7fbf131b83361dffdd0e58409212fe0b862fe4e6c80882671bf4ba3",
+      "sha256": "ef2e5c657afcb94cab61598d83a1756e249a04f7e726d025137f673ad5ebb625",
       "license": "CC-BY-4.0"
     },
     {
       "path": "templates/使用说明.md",
-      "sha256": "c359b269d562fa700d2bd7301b790836bf44d934b5b70ae4075a319058316933",
+      "sha256": "6f446aafe5ff28e96f32d95fa71a116407702b3acee25c531e5eb4a2e1460819",
       "license": "CC-BY-4.0"
     },
     {
@@ -154,107 +164,127 @@
     },
     {
       "path": "templates/土地_青苗竹果木.xlsx",
-      "sha256": "337fbcb15e6e28d717c3f632607abe8b3cee47f051fe53bb73798d4ab24c99ae",
+      "sha256": "41b0f70451abf6baac09ba86ea148f1c1d42bd616ae5f53f5a8d897786d029f7",
       "license": "CC-BY-4.0"
     },
     {
       "path": "templates/土地_青苗鱼塘.xlsx",
-      "sha256": "b156d2b882d6cdbbc0c62d29aeebb6ec1bcf900092b76b92e2cec8d44a0cf21a",
+      "sha256": "8288bdd2d89f7fccc5b0749ee92ebc118d7b6d16c88512ef1fc98e4ae3dd6cc8",
       "license": "CC-BY-4.0"
     },
     {
       "path": "templates/坟墓迁移.xlsx",
-      "sha256": "4c4a569052b93fda3fe9eb7bb9cdfe19d83210d5a09a32260a26337fb3691e8c",
+      "sha256": "e3622df841f408fb70c025311021d9c9da7d4833a14b3e02ba224534b15510ef",
       "license": "CC-BY-4.0"
     },
     {
       "path": "templates/审核意见.docx",
-      "sha256": "ab38831c820c3af09c2ab246426e4e27aa557c187f7be6795868c2f6c20beb78",
+      "sha256": "ccd692e1f9eda1388e3e5ad046d28b6bc75e6400578b96d24cf949b46777d79e",
       "license": "CC-BY-4.0"
     },
     {
       "path": "templates/房屋构建筑物.xlsx",
-      "sha256": "7cbbb02a5f8681583ea5f25f4b29ab9adefa910c3cb8ca651808b33c82e576ff",
+      "sha256": "2bc43d862cc690b17fafb7e98acebd5caa3f1aa38e6c3a6535bb072ea6ce555a",
       "license": "CC-BY-4.0"
     },
     {
       "path": "templates/资料符合性核查表.xlsx",
-      "sha256": "ed708abfe264fe08b893b396f8b83f9b89bc768ff5eebe26e7bb68ec58f304ad",
+      "sha256": "7deeb3714ffb5d3ea855e5fa3f4f8dc0245cf3e4093627c490e62f83892213d6",
       "license": "CC-BY-4.0"
     },
     {
       "path": "tools/build_public.py",
-      "sha256": "a45b3b4913ad7ca7e72a5393e1831db2001e77cb604d563f28c9dfab82469125",
+      "sha256": "590ba08d34d638b61bc442e12b756fa6ac248e6a84866029f742087e18bc873e",
       "license": "MIT"
     },
     {
       "path": "tools/check_outputs.py",
-      "sha256": "1b3d1351254b31249e9b95615095ce7710a0d032af72093baa78bf07d4285d92",
+      "sha256": "d5abc1ea0849ffa212598a207db95b97ad9b860494223a4545c0a6ee5e5cfa99",
       "license": "MIT"
     },
     {
       "path": "tools/decimal_recalc.py",
-      "sha256": "d02d184fb829253497be93318d79cba5776878ba671cd952a8d083fa102e0a16",
+      "sha256": "62f6ef3e98b0847e03fe958f6aa539be94159e6fa0d8e7ccac83260c16c6f09f",
       "license": "MIT"
     },
     {
       "path": "tools/evidence_index.py",
-      "sha256": "effe91fe35fdd1a516b547d6a5175be011c646a011be4b2ce449ad5657e27d47",
+      "sha256": "910882fa205737d85f0f48b71caf86918e3a38cc1065428182dec3f4f216d9a7",
       "license": "MIT"
     },
     {
       "path": "tools/excel_snapshot.py",
-      "sha256": "92a6fa44c3abfd7dffccfb40e07fb9718cbd2aff9db32e405f5e4011d54d57f2",
+      "sha256": "c86c24a02b903908f507e3e5b3a3da883d75dc7affa2de6c918b95593e5ba46f",
       "license": "MIT"
     },
     {
       "path": "tools/land_summary.py",
-      "sha256": "8bce2dd660fbdc255e82c04e0d0135e7e7e834a13507aad2d7bd633505e5ce2f",
+      "sha256": "b83daee4367bcbf72858adeb9e247e6260edc8b2f907426e0554ec42b1bdc6e4",
       "license": "MIT"
     },
     {
       "path": "tools/ledger_check.py",
-      "sha256": "3302b08601d7e45c5cb8f7e6e396bf2add7d2f75780ecbb387a71e4402e58249",
+      "sha256": "6362bb93ce5dcec95885eacdb07d6df32da779b654c6dbd49578cb6f19d55564",
+      "license": "MIT"
+    },
+    {
+      "path": "tools/office_export.py",
+      "sha256": "0b2869cd23096d2529fdeb0ecc97bcf6bedb1cda13c853acb06f751e412c28b8",
       "license": "MIT"
     },
     {
       "path": "tools/office_package_diff.py",
-      "sha256": "f1664ae2cc7cf120a7f01b53ea56b303a0a2cb1495d2ea25ddb7b560e9c52cc1",
+      "sha256": "d5c1b542d4d9601e5c884e5f6cc4a0fc6b9a2c0e18e3fb86104f2669ff1bfd7d",
       "license": "MIT"
     },
     {
       "path": "tools/output_mapping_check.py",
-      "sha256": "57b619704c025a28d35805a3625edb7e9d00d8ab8dd21d8e662688adedecbe80",
+      "sha256": "10bfab13989e3aae25dd0ee079d9dfef9046e85cc31f9e64439232f54c04f26e",
       "license": "MIT"
     },
     {
       "path": "tools/pdf_inspect.py",
-      "sha256": "908179dd514fd5eee04810cd7a4a4f3992c877a66b6a8cef93379ce2e6a51e6d",
+      "sha256": "c136bf41cee893a68201000fa6bb704e913e29b414f92af1335aaf2e1ffc824b",
       "license": "MIT"
     },
     {
       "path": "tools/pdf_locator.py",
-      "sha256": "028577fd24aadff2e4df6dcfae0c26d09c325d260d95fb7dfbbab20273f22c73",
+      "sha256": "a8b61f389df02848af97a5f92c5d6da14ffad41fff0a985947c93ac73353cf51",
+      "license": "MIT"
+    },
+    {
+      "path": "tools/print_check.py",
+      "sha256": "e105498a89a33c05978279cc4dded2e5e42f73f1ea3985fb2e64f8173973385b",
+      "license": "MIT"
+    },
+    {
+      "path": "tools/print_layout.py",
+      "sha256": "2f2ec1e6f3e8318ce5d6aafe97e05535b2e6b17b647dc2898366dba6a0cb113c",
       "license": "MIT"
     },
     {
       "path": "tools/public_check.py",
-      "sha256": "fdaf75b3390fe61dec11e51b21c6500896b2ae6fc6b2f4017363e525f65fc637",
+      "sha256": "e183169dfd11b12870f09f52c19645297ac54f73b13ee106176bda2496c4f501",
       "license": "MIT"
     },
     {
       "path": "tools/redline_compare.py",
-      "sha256": "c093d7f0bcb213d8db4fdf69075bc31ae282cfe624b6ad334672beb4af261c0c",
+      "sha256": "6177e7b897648b9aebdbe8170759d6208697d1c2fc97c1dc79c88a749dfce307",
       "license": "MIT"
     },
     {
       "path": "tools/tests/test_automation.py",
-      "sha256": "b4844450bae5c55cf244ec0375feb6c3972801758cdcff3cf21d214cbab0bae4",
+      "sha256": "e2fb79312d4b427bbeaf0b8f78b06c970c2f59c6ba62b6af027c0ccb5142404b",
       "license": "MIT"
     },
     {
       "path": "tools/tests/test_land_summary.py",
-      "sha256": "1d573f5a2340ac1b1e11d9338a45c7ee0cd0c6b458494ecca288fc637ccd27d7",
+      "sha256": "936dc72bdce22137ea4c7e34329fa0a375ebfffad4bb4a0de5bf35ccb2820655",
+      "license": "MIT"
+    },
+    {
+      "path": "tools/tests/test_printing.py",
+      "sha256": "9a1a559f958ff7549798065fa68ce2d77742ab6127d9d0bd6099e821ca1dcabe",
       "license": "MIT"
     },
     {
@@ -269,12 +299,12 @@
     },
     {
       "path": "tools/workflow_state.py",
-      "sha256": "29591461a0ee17ed79a4dec3836932d5ef6dce115227bd249a4c91e3974077c7",
+      "sha256": "9f90b107a3f8d2e83a06f220499ba5c0b1f35448727f4d8ba9ea1ee2c47c0d74",
       "license": "MIT"
     },
     {
       "path": "workflow.md",
-      "sha256": "7a0cfbac03b8909e8cdc4dc80d141bba48ba1f2e3f75c07e3492fdd448a70f60",
+      "sha256": "5437b740fc4af89b4621fd11aa5a87b08f5efcbe1a05c23c41e20663b7482d78",
       "license": "CC-BY-4.0"
     }
   ]

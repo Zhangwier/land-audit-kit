@@ -1,6 +1,6 @@
 # 可选小工具
 
-Python 3.11+。`python -m pip install -r requirements.txt` 安装工具依赖；只阅读规则和使用母版无需 Python。以下命令在仓库根执行，业务输出都使用新路径。
+Python 3.11+。`python -m pip install -r requirements.txt` 安装工具依赖。只阅读规则和使用母版无需 Python。以下命令在仓库或下载包根执行，输入、输出路径按本批资料填写。可以先运行 `python tools/public_check.py --release` 检查下载内容。
 
 ## 读取、复算与定位
 
@@ -19,7 +19,7 @@ Python 3.11+。`python -m pip install -r requirements.txt` 安装工具依赖；
 
 ## 交接与安全发布
 
-运行清单字段：`package`、`batches`；每批 `id/name/info/inputs/outputs`，outputs 含 audit/materials/opinion 的绝对路径。运行 JSON 路径全部使用实际绝对路径，模板和示例中的相对路径只用于说明。
+运行清单字段：`package`、`batches`；每批 `id/name/info/inputs/outputs`，outputs 含 audit/materials/opinion 的绝对路径。materials 指向本批目录的 `征地拆迁资料符合性核查表（改）.xlsx`。运行 JSON 路径全部使用实际绝对路径，模板和示例中的相对路径只用于说明。
 
 ```
 python tools/workflow_state.py init --run-dir 运行目录 --input 运行清单.json
@@ -31,7 +31,7 @@ python tools/workflow_state.py guard --run-dir 运行目录 --batch 批次ID --r
 
 角色 prepare/gemini/table/writer/verify/review/final；状态 pending/running/waiting_input/waiting_user/done/failed/canceled。先登记 running 和真实 task_id，再发布或登记 done；等待时保留 task_id。同角色全轮只用一个活跃 ID。
 
-done 需要 artifacts 的实际文件，pending 为空；table 覆盖两张表，writer 覆盖意见。`record` 不能认领历史稿。guard 查询不写入，给 candidate 才发布：检查占用与哈希，备份未被人工改变的自动旧稿。历史、人工删改、历史路径移动均保护；受保护返回 2，参数错误 1，成功 0。review/final=done 还要求有效 check_report。
+done 需要 artifacts 的实际文件，pending 为空；table 覆盖两张表，writer 覆盖意见。`record` 不能认领历史稿。guard 查询不写入，给 candidate 才发布：检查占用与哈希，备份未被人工改变的自动旧稿，写入后读回确认。失败保留候选与delivery_pending，状态显示候选稿待交付；全部登记成果读回哈希一致后才完成角色。历史、人工删改、历史路径移动均保护；受保护返回2，参数错误1，成功0。review/final=done还要求有效check_report。
 
 ## 成果核验
 
@@ -39,7 +39,49 @@ done 需要 artifacts 的实际文件，pending 为空；table 覆盖两张表�
 
 materials 的 carrier=electronic/scan/both/na/missing/unknown，content_status 单独记录 confirmed/missing/na 或待核；整批缺件需 scope=whole 与 opinion_text。coverage 含 expected_objects/objects/expected_problems/problems，各项有 refs 和 confirmed/unfounded/na 等结果，存疑保持未验证。opinion_sources 为全部编号意见给 paragraph/source，自动条目需要 decision=confirmed；historical=true 时格式命中只给建议。
 
-打印记录包含当前三成果 source_hashes、tool、recalculated、pages_checked、no_blank_pages、no_orphan_total_or_date、实际 pdfs；实际操作并看页后才写 true。工具返回 0 只证明配置内检查通过，不替代业务判断；2 为失败或未验证，1 为输入/执行错误。
+打印报告版本2由下节入口产生，含当前成果、PDF、逐页图片哈希、软件版本、页对应关系、实际尺寸与字号，以及每页看图记录。旧版布尔标记不满足新版验收。工具返回0只证明配置内检查通过，不替代业务判断；2为失败或未验证，1为输入/执行错误。
+
+## 统一制表、重算与打印验收
+
+`python tools/print_layout.py 工作副本.xlsx --config 打印配置.json --output 新候选.xlsx` 设置打印并生成 `新候选.xlsx.layout.json`。土地在现有汇总表、明细表设置 A4 分页；其他类别按模板的打印配置生成。扩行、删行或类别改变后重新生成。输入与输出使用不同路径。
+
+打印配置示例：
+
+```json
+{
+  "template_category": "land_tree",
+  "categories": ["land", "crop", "tree"],
+  "stage": "INITIAL",
+  "project_name": "合成示例项目",
+  "batch": "示例段第一批",
+  "title": "示例项目示例段第一批",
+  "compensation_name": "土地、青苗及竹果木补偿",
+  "end_rows": {"补偿审核明细表": 8, "补偿审核汇总表": 8}
+}
+```
+
+类别以模板清单为准，`categories` 填本批实际类别。阶段为 INITIAL / PAYMENT / SETTLEMENT，`end_rows` 填合计前最后一行。土地的 `title` 是经认可的项目简称及批次组成的标题前缀，省略时取项目与批次；工具追加 `compensation_name` 与“审核汇总表”或“审核明细表”。`margins_mm` 可覆盖边距。行政村以本批原件为准。
+
+`python tools/office_export.py --config 导出配置.json --output 新导出目录 --engine wps` 使用独立 WPS 实例；交付给 Excel 用户时选择 `--engine excel`。需相应桌面软件及 Windows pywin32。程序按布局重算、保存、重新打开并导出 PDF。土地汇总设置横纵各一页，明细按指定列分区并允许纵向续页；在选定软件中出现意外横向断页时收紧明细缩放。导出目录的工作簿是带重算缓存的待发布候选。
+
+```json
+{
+  "batch": "【批次全称】",
+  "files": [
+    {"kind": "audit", "file": "【新审核候选绝对路径】", "layout": "【其layout.json绝对路径】"},
+    {"kind": "materials", "file": "【新符合性候选绝对路径】", "layout": "【其layout.json绝对路径】"},
+    {"kind": "opinion", "file": "【新意见候选绝对路径】", "font_pt": 14}
+  ]
+}
+```
+
+完整批次登记三件套。只制表或专项导出相应子集。核查表导出为 `征地拆迁资料符合性核查表（改）.xlsx`，初审与正式审核 Word 分别沿用所选母版字号及版式。
+
+1. `python tools/print_check.py inspect --input 新导出目录/export.json --output 新看页目录` 解析并渲染全部物理页，检查 A4、标题、重复表头、分区、字段和合计。土地表从保存文件读回 A1 及页眉22磅加粗，并记录 PDF 实测字号供看页判断。按 100% 输出的其他布局继续检查实际字号下限。
+2. 实际查看每页PNG后写看页决定JSON，pages 的键取报告中的每页id；每页记录 reviewer 与 checks，checks 必须逐项包含 text、borders、title、total、pagination、readable 的真实布尔结果。生成图片本身不是看页。
+3. `python tools/print_check.py review --input 新看页目录/print_report.json --decisions 看页决定.json --output 新打印验收.json`：重读PDF和图片验证哈希及对应关系，自动失败与未完成项不能靠布尔标记消除。
+4. 使用guard发布导出候选并确认磁盘读回。`python tools/print_check.py rebind --input 新打印验收.json --files 交付路径映射.json --output 新交付打印验收.json`：映射为 kind→实际绝对路径，仅允许字节与重算候选一致，保留原PDF与每页图证据；新报告及相邻导出记录均保留。
+5. 成果核验配置的 files 与 print_report 指向当前交付文件及新交付打印验收报告，再运行 check_outputs。任何保存或改稿导致哈希变化后重新导出、看页及核验；旧版报告只保留为历史证据。
 
 Gemini 分组结果：`python tools/check_outputs.py split --input 批次清单.json --response 组审核.md --output 新报告.json`。清单每项 batch/output，以完整 `## 批次：` 标题对应，报告 completed/missing/duplicate/unexpected/protected_conflicts；缺节单独续做，不按返回顺序猜批次。
 

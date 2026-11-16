@@ -12,10 +12,11 @@ PATTERNS={
     'home_path':re.compile(r'/(?:'+'Users|home'+r')/[^/\s]+/'),
     'credential_assignment':re.compile(r'(?:sk-[A-Za-z0-9_-]{20,}|gh[pousr]_[A-Za-z0-9]{20,})'),
 }
-ROOT_FILES={'README.md','AI_START.md','AI_README.md','AGENTS.md','workflow.md','requirements.txt','LICENSE-CODE','LICENSE-CONTENT','.gitignore'}
+ROOT_FILES={'README.md','AI_START.md','AI_README.md','AGENTS.md','workflow.md','requirements.txt','LICENSE-CODE','LICENSE-CONTENT','.gitignore','.gitattributes'}
 ROOT_DIRS={'rules','catalog','roles','templates','tools','docs','adapters','examples','contracts'}
 SUFFIXES={'.md','.py','.json','.csv','.txt','.xlsx','.docx'}
 RELEASE_FILES={'README.md','AI_START.md','AI_README.md','AGENTS.md','workflow.md',
+    '.gitattributes',
     'rules/audit.md','rules/format.md','catalog/opinions_catalog.json','catalog/opinions.md',
     'catalog/check_catalog.csv','contracts/land_audit.schema.json','docs/tools.md',
     'docs/lessons.md','templates/使用说明.md','templates/template_manifest.json',

@@ -24,7 +24,7 @@ def generate():
         parts.append(f'\n## {category}\n')
         for r in items:
             parts.append(f'\n### {r["id"]} {r["issue"]}\n\n适用：'+ joined(r['conditions']).rstrip('。')+'。\n\n需核证据：'+joined(r['evidence']).rstrip('。')+'。\n\n> '+r['template']+'\n\n避免：'+joined(r['avoid']).rstrip('。')+'。\n\n结论强度：'+r['strength']+'。来源：'+', '.join(r['source_ids'])+'。\n')
-    (ROOT/'catalog/opinions.md').write_text(''.join(parts),encoding='utf8')
+    (ROOT/'catalog/opinions.md').write_text(''.join(parts),encoding='utf8',newline='\n')
     titles=['AI_START.md','rules/audit.md','rules/format.md','templates/使用说明.md','catalog/opinions.md','workflow.md','docs/lessons.md','examples/README.md']
     combined=['# 征地审核 AI 合订文本\n\n此文件由权威规则和句式生成。供无法逐文件访问的 AI 阅读；空白 Office 母版仍需另行下载。原文件中相对链接按仓库根及各自目录解析。\n']
     for name in titles:combined.append(f'\n---\n\n来源文件：{name}\n\n'+(ROOT/name).read_text('utf8'))
@@ -33,10 +33,11 @@ def generate():
     combined.append('\n---\n\n## 逐项检查目录\n\n来源文件：catalog/check_catalog.csv。按对象类别和当前范围选择适用项，完成记录不替代实质回源。\n')
     for row in checks:
         combined.append(f'\n### {row["check_id"]} {row["title"]}\n\n类别：{row["module"]}；范围：{row["modes"]}。\n\n输入：{row["inputs"]}。\n\n动作：{row["action"]}。\n\n记录：{row["record"]}。\n\n未核边界：{row["blocked_when"]}。\n')
-    (ROOT/'AI_README.md').write_text(''.join(combined),encoding='utf8')
+    (ROOT/'AI_README.md').write_text(''.join(combined),encoding='utf8',newline='\n')
     paths=sorted(p for p in ROOT.rglob('*') if p.is_file() and allowed(p.relative_to(ROOT).as_posix()))
-    manifest={'schema_version':1,'version':'1.0.0','files':[{'path':p.relative_to(ROOT).as_posix(),'sha256':digest(p),'license':'MIT' if p.suffix=='.py' or p.parts[-2]=='contracts' or p.name in {'LICENSE-CODE','requirements.txt','.gitignore'} else 'CC-BY-4.0'} for p in paths]}
-    (ROOT/'public_manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf8')
+    version=json.loads((ROOT/'templates/template_manifest.json').read_text('utf8'))['version']
+    manifest={'schema_version':1,'version':version,'files':[{'path':p.relative_to(ROOT).as_posix(),'sha256':digest(p),'license':'MIT' if p.suffix=='.py' or p.parts[-2]=='contracts' or p.name in {'LICENSE-CODE','requirements.txt','.gitignore','.gitattributes'} else 'CC-BY-4.0'} for p in paths]}
+    (ROOT/'public_manifest.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf8',newline='\n')
     return manifest
 def main():
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--zip');parser.add_argument('--denylist')

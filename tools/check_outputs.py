@@ -38,15 +38,31 @@ def paragraphs(path):
     return ["".join(t.text or "" for t in p.findall(".//w:t", ns)) for p in root.findall(".//w:p", ns)]
 
 
-def opinion_entries(doc):
-    entries = []
-    for i, text in enumerate(doc, 1):
+OPINION_HEADING = re.compile(r"^[一二三四五六七八九十]+、\s*审核意见[：:]?$")
+SECTION_HEADING = re.compile(r"^[一二三四五六七八九十]+、|^附表[：:]")
+OPINION_SUBHEADING = re.compile(r"^[（(][一二三四五六七八九十]+[)）]\s*(?:合规性审查|补偿费用审核)[：:]?$")
+
+
+def opinion_groups(doc):
+    """Keep formal report findings separate from bases, notices and attachments."""
+    start = next((i for i, p in enumerate(doc, 1) if OPINION_HEADING.fullmatch(p.strip())), 0)
+    groups = [[]]
+    for i, text in enumerate(doc[start:], start + 1):
         text = text.strip()
-        if re.match(r"^\d+[.、．]", text):
-            entries.append((i, text))
-        elif re.match(r"^[（(][一二三四五六七八九十]+[)）]", text) and len(text) > 15:
-            entries.append((i, text))
-    return entries
+        if start and SECTION_HEADING.match(text):
+            break
+        if start and OPINION_SUBHEADING.fullmatch(text):
+            if groups[-1]:
+                groups.append([])
+            continue
+        if (re.match(r"^\d+[.、．]", text)
+                or (re.match(r"^[（(][一二三四五六七八九十]+[)）]", text) and len(text) > 15)):
+            groups[-1].append((i, text))
+    return groups
+
+
+def opinion_entries(doc):
+    return [entry for group in opinion_groups(doc) for entry in group]
 
 
 def upper_money(value):
@@ -157,18 +173,21 @@ class Checker:
                 sources += [("标题", p) for p in nonempty[:5] if re.search(batch_pattern, p) and "意见" in p]
                 text = "\n".join(self.docs[key])
                 patterns = {"内部用语": r"Gemini|核实员|底稿|(?:\bAI\b)", "表格坐标": r"Sheet\s|第\d+行|[A-Z]{1,3}列|[A-Z]{1,3}\d+单元格",
-                            "书名号": r"[《》]", "错名或重复字": r"征收征地"}
+                            "错名或重复字": r"征收征地"}
+                if not any(OPINION_HEADING.fullmatch(p.strip()) for p in nonempty):
+                    patterns["书名号"] = r"[《》]"
                 patterns.update(self.spec.get("forbidden_text_patterns", {}))
                 for label, pattern in patterns.items():
                     if re.search(pattern, text):
                         self.add("text", "advisory" if self.spec.get("historical") else "fail", label, str(path))
-                numbered = [p for _, p in opinion_entries(self.docs[key])]
-                for p in numbered:
-                    if not p.endswith("。"):
-                        self.add("text", "advisory" if self.spec.get("historical") else "fail", "编号意见缺句号", p[:100])
-                nums = [int(m.group(1)) for p in numbered if (m := re.match(r"^(\d+)[.、．]", p))]
-                if nums and nums != list(range(1, len(nums) + 1)):
-                    self.add("text", "advisory" if self.spec.get("historical") else "fail", "意见编号不连续", str(path))
+                status = "advisory" if self.spec.get("historical") else "fail"
+                for group in opinion_groups(self.docs[key]):
+                    for _, p in group:
+                        if not p.endswith("。"):
+                            self.add("text", status, "编号意见缺句号", p[:100])
+                    nums = [int(m.group(1)) for _, p in group if (m := re.match(r"^(\d+)[.、．]", p))]
+                    if nums and nums != list(range(1, len(nums) + 1)):
+                        self.add("text", status, "意见编号不连续", str(path))
             if key in self.books:
                 from openpyxl import load_workbook
                 workbook = load_workbook(path, read_only=False, data_only=False)
@@ -354,26 +373,17 @@ class Checker:
             return
         evidence = load(report)
         self.hashes[str(Path(report).resolve())] = sha(report)
+        from print_check import validate_report
+        findings, hashes = validate_report(evidence)
+        self.hashes.update(hashes)
         for path, digest in evidence.get("source_hashes", {}).items():
-            if self.hashes.get(str(Path(path).resolve())) != digest:
+            current = self.files.values()
+            if Path(path).resolve() not in current or not Path(path).is_file() or sha(path) != digest:
                 self.add("print", "unverified", "打印检查对应其他版本", path)
         if set(evidence.get("source_hashes", {})) != {str(p) for p in self.files.values()}:
             self.add("print", "unverified", "打印检查没有覆盖全部成果")
-        for key in ("recalculated", "pages_checked", "no_blank_pages", "no_orphan_total_or_date"):
-            if evidence.get(key) is not True:
-                self.add("print", "unverified", "打印检查未完成：" + key)
-        pdfs = evidence.get("pdfs", [])
-        if not pdfs or not evidence.get("tool"):
-            self.add("print", "unverified", "缺导出工具或 PDF 留证")
-        for pdf in pdfs:
-            p = Path(pdf).resolve()
-            if p.is_file():
-                with p.open("rb") as stream:
-                    if stream.read(5) != b"%PDF-":
-                        self.add("print", "unverified", "留证文件不是 PDF", str(p))
-                self.hashes[str(p)] = sha(p)
-            else:
-                self.add("print", "unverified", "导出 PDF 不存在", str(p))
+        for finding in findings:
+            self.add("print", finding['status'], finding['message'], finding.get('location'))
 
     def run(self):
         self.names_and_text()

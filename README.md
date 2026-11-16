@@ -1,12 +1,14 @@
 # 征地审核规范、句式与模板库
 
-供 AI 或审核人员处理土地、青苗竹果木、房屋构建筑物、坟墓及补偿支付资料。提供可编辑空白母版、逐项审核方法、条件化意见句式和可选小工具。
+供 AI 或审核人员处理土地、青苗竹果木、房屋构建筑物、坟墓及补偿支付资料。提供空白母版、实审方法、意见句式和小工具。土地补偿审核表用一个工作簿的汇总、明细两张表直接打印，按实际使用的 Office 软件验证 A4 分页。入口见下表。
 
 把下面这句话连同本次资料交给 AI：
 
 > 请先完整读取本库 AI_START.md，按其中入口选择本次范围和阶段。审核我提供的资料，使用本库母版制表；意见参考对应句式的适用条件，逐项回源，交付实际已核范围和未核事项。
 
-GitHub 阅读入口：[AI_START.md](AI_START.md)。不能逐文件读取的 AI 使用 [AI_README.md](AI_README.md)；不能访问 GitHub 时，把 [Release 下载包](https://github.com/Zhangwier/land-audit-kit/releases/latest)解压后连同本次资料上传。二进制母版在 [templates/](templates/)，需要下载后使用。
+在 GitHub 从 [AI_START.md](AI_START.md) 开始，或将 [Release 下载包](https://github.com/Zhangwier/land-audit-kit/releases/latest) 解压后使用。下载包含审核规则、意见句式、七份可编辑母版和工具。只读规则或用母版填表时，直接从 [templates/](templates/) 选表；只能上传单份规则文件时，可用 [AI_README.md](AI_README.md) 连同对应母版及本批资料交给 AI。
+
+业务使用只需提供自己的送审资料和适用依据。目录和项目约定按本批实际情况填写。运行脚本时按[工具说明](docs/tools.md)安装依赖。
 
 | 内容 | 入口 |
 |---|---|

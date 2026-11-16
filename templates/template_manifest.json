@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "version": "1.0.0",
-  "generated": "2026-11-13",
+  "version": "1.1.0",
+  "generated": "2026-11-15",
   "note": "空白母版，不含业务数据。占位符与公式仅用于演示版式和计算；项目特定口径不在此公开目录。",
   "placeholders": [
     "【项目名称】",
@@ -20,7 +20,7 @@
       "path": "templates/土地_青苗竹果木.xlsx",
       "category": "land_tree",
       "purpose": "土地、留用地、基础青苗、竹果木补偿审核表（含汇总与明细）",
-      "sha256": "337fbcb15e6e28d717c3f632607abe8b3cee47f051fe53bb73798d4ab24c99ae",
+      "sha256": "41b0f70451abf6baac09ba86ea148f1c1d42bd616ae5f53f5a8d897786d029f7",
       "sheets": [
         {
           "name": "补偿审核汇总表",
@@ -29,7 +29,7 @@
           "total_row": 9,
           "print_area": "A1:AF9",
           "header": "无",
-          "note_cell": "A10（打印区域外）"
+          "calculation_only": true
         },
         {
           "name": "补偿审核明细表",
@@ -40,23 +40,47 @@
           "print_title_rows": "2:5",
           "print_title_cols": "A:B",
           "header": "【项目名称】【批次】土地、青苗及竹果木补偿审核明细表（22号加粗）",
-          "note_cell": "A20（打印区域外）",
           "key_cells": {
             "留用地比例输入": "BN2（初始为空）",
             "送审金额": "K（土地补偿）、N（留用地）、AG（青苗）、AZ（竹果木）",
             "审核金额": "X、AA、AB（征地及留用地）；AO、AR、AS（青苗）；BF（竹果木）",
             "补偿合计": "BH（送审）、BI（审核）、BJ（核增减）",
             "行政村/地类": "BO/BP（汇总元数据，打印区域外）"
-          }
+          },
+          "calculation_only": true
         }
       ],
-      "expand": "明细BO列输入行政村、BP列输入地类。扩行后用 land_summary.py --detail-end-row 实际末行 --fill-summary 重建，汇总按行政村与地类双条件取数，不含合计及打印区外说明行。"
+      "expand": "明细BO列输入行政村、BP列输入地类。扩行后用 land_summary.py --detail-end-row 实际末行 --fill-summary 重建，汇总按行政村与地类双条件取数，不含合计及打印区外说明行。",
+      "print_profiles": [
+        {
+          "sheet": "补偿审核汇总表",
+          "key_column": "A",
+          "start_row": 6,
+          "default_end_row": 8
+        },
+        {
+          "sheet": "补偿审核明细表",
+          "key_column": "A",
+          "start_row": 6,
+          "default_end_row": 8
+        }
+      ],
+      "print_sheets": [
+        {
+          "sheet": "补偿审核汇总表",
+          "orientation": "landscape"
+        },
+        {
+          "sheet": "补偿审核明细表",
+          "orientation": "landscape"
+        }
+      ]
     },
     {
       "path": "templates/土地_青苗鱼塘.xlsx",
       "category": "land_pond",
       "purpose": "土地、留用地、青苗及鱼塘搬迁补偿审核表；竹果木版块不参与打印",
-      "sha256": "b156d2b882d6cdbbc0c62d29aeebb6ec1bcf900092b76b92e2cec8d44a0cf21a",
+      "sha256": "8288bdd2d89f7fccc5b0749ee92ebc118d7b6d16c88512ef1fc98e4ae3dd6cc8",
       "sheets": [
         {
           "name": "补偿审核汇总表",
@@ -65,7 +89,7 @@
           "total_row": 9,
           "print_area": "A1:AF9",
           "header": "无",
-          "note_cell": "A10（打印区域外）"
+          "calculation_only": true
         },
         {
           "name": "补偿审核明细表",
@@ -76,22 +100,46 @@
           "print_title_rows": "2:5",
           "print_title_cols": "A:B",
           "header": "【项目名称】【批次】土地、青苗及鱼塘搬迁补偿审核明细表（22号加粗）",
-          "note_cell": "A20（打印区域外）",
           "key_cells": {
             "留用地比例输入": "BN2（初始为空）",
             "审核金额": "X、AA、AB（征地及留用地）；AO、AR、AS（青苗及鱼塘）",
             "补偿合计": "BH、BI、BJ",
             "行政村/地类": "BO/BP（汇总元数据，打印区域外）"
-          }
+          },
+          "calculation_only": true
         }
       ],
-      "expand": "明细BO列输入行政村、BP列输入地类。扩行后用 land_summary.py --detail-end-row 实际末行 --fill-summary 重建，汇总按行政村与地类双条件取数，不含合计及打印区外说明行。"
+      "expand": "明细BO列输入行政村、BP列输入地类。扩行后用 land_summary.py --detail-end-row 实际末行 --fill-summary 重建，汇总按行政村与地类双条件取数，不含合计及打印区外说明行。",
+      "print_profiles": [
+        {
+          "sheet": "补偿审核汇总表",
+          "key_column": "A",
+          "start_row": 6,
+          "default_end_row": 8
+        },
+        {
+          "sheet": "补偿审核明细表",
+          "key_column": "A",
+          "start_row": 6,
+          "default_end_row": 8
+        }
+      ],
+      "print_sheets": [
+        {
+          "sheet": "补偿审核汇总表",
+          "orientation": "landscape"
+        },
+        {
+          "sheet": "补偿审核明细表",
+          "orientation": "landscape"
+        }
+      ]
     },
     {
       "path": "templates/房屋构建筑物.xlsx",
       "category": "building",
       "purpose": "房屋、装修、附属物及构建筑物补偿审核表",
-      "sha256": "7cbbb02a5f8681583ea5f25f4b29ab9adefa910c3cb8ca651808b33c82e576ff",
+      "sha256": "2bc43d862cc690b17fafb7e98acebd5caa3f1aa38e6c3a6535bb072ea6ce555a",
       "sheets": [
         {
           "name": "补偿审核汇总表",
@@ -100,7 +148,7 @@
           "total_row": 7,
           "print_area": "A1:H7",
           "header": "无",
-          "note_cell": "A8（打印区域外）"
+          "calculation_only": true
         },
         {
           "name": "补偿审核明细表",
@@ -110,22 +158,223 @@
           "print_area": "A2:P7",
           "print_title_rows": "2:3",
           "header": "【项目名称】【批次】地上构建物补偿审核明细表（22号加粗）",
-          "note_cell": "A8（打印区域外）",
           "key_cells": {
             "送审金额": "K",
             "审核金额": "N（ROUND(L×M,2)）",
             "核增减": "O",
             "合计": "K7、N7、O7"
-          }
+          },
+          "calculation_only": true
         }
       ],
-      "expand": "总价项目按原金额录入送审金额，不强套数量×单价；扩行后同步合计与汇总引用。"
+      "expand": "总价项目按原金额录入送审金额，不强套数量×单价；扩行后同步合计与汇总引用。",
+      "print_profiles": [
+        {
+          "sheet": "补偿审核汇总表",
+          "key_column": "A",
+          "start_row": 4,
+          "default_end_row": 6,
+          "bands": [
+            {
+              "id": "构建物汇总",
+              "title": "构建物补偿审核汇总",
+              "category": "building",
+              "columns": [
+                "A",
+                "B",
+                "C",
+                "D",
+                "E",
+                "F",
+                "G",
+                "H"
+              ],
+              "labels": [
+                "序号",
+                "行政村",
+                "户主姓名",
+                "名称",
+                "送审",
+                "审核",
+                "核增减",
+                "备注"
+              ],
+              "widths_mm": [
+                24,
+                30,
+                25,
+                25,
+                25,
+                25,
+                25,
+                25
+              ],
+              "money_columns": [
+                "E",
+                "F",
+                "G"
+              ]
+            }
+          ]
+        },
+        {
+          "sheet": "补偿审核明细表",
+          "key_column": "A",
+          "start_row": 4,
+          "default_end_row": 6,
+          "bands": [
+            {
+              "id": "构建物信息",
+              "title": "构建物登记信息",
+              "category": "building",
+              "columns": [
+                "A",
+                "B",
+                "C",
+                "D",
+                "E",
+                "F",
+                "G",
+                "H",
+                "P"
+              ],
+              "labels": [
+                "序号",
+                "测量地号",
+                "姓名",
+                "名称",
+                "补偿项目",
+                "檐高（米）",
+                "丈量尺寸（米）",
+                "单位",
+                "备注"
+              ],
+              "widths_mm": [
+                24,
+                30,
+                25,
+                25,
+                25,
+                25,
+                25,
+                25,
+                25
+              ]
+            },
+            {
+              "id": "构建物金额",
+              "title": "构建物补偿审核明细",
+              "category": "building",
+              "columns": [
+                "A",
+                "B",
+                "I",
+                "J",
+                "K",
+                "L",
+                "M",
+                "N",
+                "O"
+              ],
+              "labels": [
+                "序号",
+                "测量地号",
+                "送审\n数量",
+                "送审\n标准（元）",
+                "送审\n金额（元）",
+                "审核\n数量",
+                "审核\n标准（元）",
+                "审核\n金额（元）",
+                "核增减（元）"
+              ],
+              "widths_mm": [
+                24,
+                30,
+                25,
+                25,
+                25,
+                25,
+                25,
+                25,
+                25
+              ]
+            }
+          ]
+        }
+      ],
+      "print_sheets": [
+        {
+          "sheet": "打印_构建物汇总",
+          "category": "building",
+          "columns": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G",
+            "H"
+          ],
+          "page_rows": [
+            [
+              4,
+              5
+            ]
+          ],
+          "orientation": "landscape"
+        },
+        {
+          "sheet": "打印_构建物信息",
+          "category": "building",
+          "columns": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G",
+            "H",
+            "P"
+          ],
+          "page_rows": [
+            [
+              4,
+              5
+            ]
+          ],
+          "orientation": "landscape"
+        },
+        {
+          "sheet": "打印_构建物金额",
+          "category": "building",
+          "columns": [
+            "A",
+            "B",
+            "I",
+            "J",
+            "K",
+            "L",
+            "M",
+            "N",
+            "O"
+          ],
+          "page_rows": [
+            [
+              4,
+              5
+            ]
+          ],
+          "orientation": "landscape"
+        }
+      ]
     },
     {
       "path": "templates/坟墓迁移.xlsx",
       "category": "grave",
       "purpose": "坟墓迁移补偿审核表；按行政村汇总并与明细 SUMIFS 关联",
-      "sha256": "4c4a569052b93fda3fe9eb7bb9cdfe19d83210d5a09a32260a26337fb3691e8c",
+      "sha256": "e3622df841f408fb70c025311021d9c9da7d4833a14b3e02ba224534b15510ef",
       "sheets": [
         {
           "name": "坟墓审核汇总表",
@@ -134,7 +383,6 @@
           "total_row": 6,
           "print_area": "A1:H6",
           "header": "无",
-          "note_cell": "A7（打印区域外）",
           "key_cells": {
             "行政村": "B3:B5（输入）",
             "送审穴数": "C3:C5 = SUMIFS(明细!G$4:G$6, 明细!$N$4:$N$6, $B行)",
@@ -142,7 +390,8 @@
             "审核穴数": "E3:E5（取 J 列）",
             "审核金额": "F3:F5（取 L 列）",
             "核增减": "G3:G5（取 M 列）"
-          }
+          },
+          "calculation_only": true
         },
         {
           "name": "坟墓审核明细表",
@@ -152,21 +401,209 @@
           "print_area": "A2:N7",
           "print_title_rows": "2:3",
           "header": "【项目名称】【批次】坟墓迁移补偿审核明细表（22号加粗）",
-          "note_cell": "A8（打印区域外）",
           "key_cells": {
             "行政村": "N4:N6（新增列，末列；汇总 SUMIFS 依据）",
             "审核金额": "L（ROUND(J×K,2)）",
             "核增减": "M"
-          }
+          },
+          "calculation_only": true
         }
       ],
-      "expand": "扩行时同时扩展明细合计行与汇总 SUMIFS 的行范围（G/I/J/L/M 与 $N$）；行政村按明细实际填写，不得把整批合计复制到每个村。"
+      "expand": "扩行时同时扩展明细合计行与汇总 SUMIFS 的行范围（G/I/J/L/M 与 $N$）；行政村按明细实际填写，不得把整批合计复制到每个村。",
+      "print_profiles": [
+        {
+          "sheet": "坟墓审核汇总表",
+          "key_column": "A",
+          "start_row": 3,
+          "default_end_row": 5,
+          "bands": [
+            {
+              "id": "坟墓汇总",
+              "title": "坟墓补偿审核汇总",
+              "category": "grave",
+              "columns": [
+                "A",
+                "B",
+                "C",
+                "D",
+                "E",
+                "F",
+                "G",
+                "H"
+              ],
+              "labels": [
+                "序号",
+                "行政村",
+                "送审穴数（穴）",
+                "送审金额（元）",
+                "审核穴数（穴）",
+                "审核金额（元）",
+                "核增减（元）",
+                "备注"
+              ],
+              "widths_mm": [
+                15,
+                32,
+                24,
+                32,
+                24,
+                32,
+                28,
+                70
+              ]
+            }
+          ]
+        },
+        {
+          "sheet": "坟墓审核明细表",
+          "key_column": "A",
+          "start_row": 4,
+          "default_end_row": 6,
+          "bands": [
+            {
+              "id": "坟墓信息",
+              "title": "坟墓登记信息",
+              "category": "grave",
+              "columns": [
+                "A",
+                "B",
+                "C",
+                "D",
+                "E",
+                "F",
+                "N"
+              ],
+              "labels": [
+                "墓号",
+                "对应宗地",
+                "管理人",
+                "村/集体",
+                "地名",
+                "申报墓型",
+                "行政村"
+              ],
+              "widths_mm": [
+                24,
+                30,
+                26,
+                30,
+                35,
+                40,
+                35
+              ]
+            },
+            {
+              "id": "坟墓金额",
+              "title": "坟墓补偿审核明细",
+              "category": "grave",
+              "columns": [
+                "A",
+                "C",
+                "G",
+                "H",
+                "I",
+                "J",
+                "K",
+                "L",
+                "M"
+              ],
+              "labels": [
+                "墓号",
+                "管理人",
+                "送审穴数（穴）",
+                "标准（元/穴）",
+                "送审金额（元）",
+                "审核穴数（穴）",
+                "审核标准（元/穴）",
+                "审核金额（元）",
+                "核增减"
+              ],
+              "widths_mm": [
+                24,
+                28,
+                24,
+                28,
+                32,
+                24,
+                28,
+                32,
+                28
+              ]
+            }
+          ]
+        }
+      ],
+      "print_sheets": [
+        {
+          "sheet": "打印_坟墓汇总",
+          "category": "grave",
+          "columns": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G",
+            "H"
+          ],
+          "page_rows": [
+            [
+              4,
+              7
+            ]
+          ],
+          "orientation": "landscape"
+        },
+        {
+          "sheet": "打印_坟墓信息",
+          "category": "grave",
+          "columns": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "N"
+          ],
+          "page_rows": [
+            [
+              4,
+              5
+            ]
+          ],
+          "orientation": "landscape"
+        },
+        {
+          "sheet": "打印_坟墓金额",
+          "category": "grave",
+          "columns": [
+            "A",
+            "C",
+            "G",
+            "H",
+            "I",
+            "J",
+            "K",
+            "L",
+            "M"
+          ],
+          "page_rows": [
+            [
+              4,
+              5
+            ]
+          ],
+          "orientation": "landscape"
+        }
+      ]
     },
     {
       "path": "templates/资料符合性核查表.xlsx",
       "category": "materials",
       "purpose": "征地拆迁资料符合性核查表（收件载体与内容待核分开）",
-      "sha256": "ed708abfe264fe08b893b396f8b83f9b89bc768ff5eebe26e7bb68ec58f304ad",
+      "sha256": "7deeb3714ffb5d3ea855e5fa3f4f8dc0245cf3e4093627c490e62f83892213d6",
       "sheets": [
         {
           "name": "资料符合性核查表",
@@ -174,16 +611,283 @@
           "print_area": "A1:F74",
           "print_title_rows": "1:6",
           "header": "资料符合性核查表",
-          "note_cell": "A76（打印区域外）"
+          "calculation_only": true
         }
       ],
-      "expand": "范围外类别整行隐藏，不删除；“（四）【主管部门】下发的汇总表”为固定标题，本批具体表名写在其下第一项。"
+      "expand": "范围外类别整行隐藏，不删除；“（四）【主管部门】下发的汇总表”为固定标题，本批具体表名写在其下第一项。",
+      "print_profiles": [
+        {
+          "sheet": "资料符合性核查表",
+          "row_groups": [
+            {
+              "start": 7,
+              "end": 7,
+              "stages": [
+                "INITIAL"
+              ],
+              "categories": [
+                "land",
+                "crop",
+                "pond",
+                "tree"
+              ]
+            },
+            {
+              "start": 8,
+              "end": 11,
+              "stages": [
+                "INITIAL"
+              ],
+              "categories": [
+                "land",
+                "crop"
+              ]
+            },
+            {
+              "start": 12,
+              "end": 16,
+              "stages": [
+                "INITIAL"
+              ],
+              "categories": [
+                "tree"
+              ]
+            },
+            {
+              "start": 17,
+              "end": 20,
+              "stages": [
+                "INITIAL"
+              ],
+              "categories": [
+                "pond"
+              ]
+            },
+            {
+              "start": 21,
+              "end": 22,
+              "stages": [
+                "INITIAL"
+              ],
+              "categories": [
+                "land",
+                "crop",
+                "pond",
+                "tree"
+              ]
+            },
+            {
+              "start": 23,
+              "end": 28,
+              "stages": [
+                "INITIAL"
+              ],
+              "categories": [
+                "building"
+              ]
+            },
+            {
+              "start": 29,
+              "end": 35,
+              "stages": [
+                "INITIAL"
+              ],
+              "categories": [
+                "grave"
+              ]
+            },
+            {
+              "start": 36,
+              "end": 36,
+              "stages": [
+                "PAYMENT"
+              ],
+              "categories": [
+                "land",
+                "crop",
+                "pond",
+                "tree"
+              ]
+            },
+            {
+              "start": 37,
+              "end": 43,
+              "stages": [
+                "PAYMENT"
+              ],
+              "categories": [
+                "land",
+                "crop"
+              ]
+            },
+            {
+              "start": 44,
+              "end": 50,
+              "stages": [
+                "PAYMENT"
+              ],
+              "categories": [
+                "tree"
+              ]
+            },
+            {
+              "start": 51,
+              "end": 56,
+              "stages": [
+                "PAYMENT"
+              ],
+              "categories": [
+                "pond"
+              ]
+            },
+            {
+              "start": 57,
+              "end": 58,
+              "stages": [
+                "PAYMENT"
+              ],
+              "categories": [
+                "land",
+                "crop",
+                "pond",
+                "tree"
+              ]
+            },
+            {
+              "start": 59,
+              "end": 66,
+              "stages": [
+                "PAYMENT"
+              ],
+              "categories": [
+                "building"
+              ]
+            },
+            {
+              "start": 67,
+              "end": 74,
+              "stages": [
+                "PAYMENT"
+              ],
+              "categories": [
+                "grave"
+              ]
+            },
+            {
+              "start": 36,
+              "end": 36,
+              "stages": [
+                "SETTLEMENT"
+              ],
+              "categories": [
+                "land",
+                "crop",
+                "pond",
+                "tree"
+              ]
+            },
+            {
+              "start": 37,
+              "end": 43,
+              "stages": [
+                "SETTLEMENT"
+              ],
+              "categories": [
+                "land",
+                "crop"
+              ]
+            },
+            {
+              "start": 44,
+              "end": 50,
+              "stages": [
+                "SETTLEMENT"
+              ],
+              "categories": [
+                "tree"
+              ]
+            },
+            {
+              "start": 51,
+              "end": 56,
+              "stages": [
+                "SETTLEMENT"
+              ],
+              "categories": [
+                "pond"
+              ]
+            },
+            {
+              "start": 57,
+              "end": 58,
+              "stages": [
+                "SETTLEMENT"
+              ],
+              "categories": [
+                "land",
+                "crop",
+                "pond",
+                "tree"
+              ]
+            },
+            {
+              "start": 59,
+              "end": 66,
+              "stages": [
+                "SETTLEMENT"
+              ],
+              "categories": [
+                "building"
+              ]
+            },
+            {
+              "start": 67,
+              "end": 74,
+              "stages": [
+                "SETTLEMENT"
+              ],
+              "categories": [
+                "grave"
+              ]
+            }
+          ]
+        }
+      ],
+      "print_sheets": [
+        {
+          "sheet": "打印_资料符合性",
+          "category": "materials",
+          "columns": [
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F"
+          ],
+          "page_rows": [
+            [
+              5,
+              17
+            ],
+            [
+              18,
+              31
+            ],
+            [
+              32,
+              33
+            ]
+          ],
+          "orientation": "portrait"
+        }
+      ]
     },
     {
       "path": "templates/审核意见.docx",
       "category": "opinion_audit",
       "purpose": "完整审核意见空白稿：封面、第二页金额及大写、项目情况、合规性、金额结论、附表、日期",
-      "sha256": "ab38831c820c3af09c2ab246426e4e27aa557c187f7be6795868c2f6c20beb78",
+      "sha256": "ccd692e1f9eda1388e3e5ad046d28b6bc75e6400578b96d24cf949b46777d79e",
       "structure": {
         "pages": 4,
         "cover": "【项目名称】/【批次】/【补偿类别】补偿审核意见/审 核 报 告/【审核日期】",

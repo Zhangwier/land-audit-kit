@@ -201,9 +201,16 @@ def guard(run_dir, bid, file, candidate=None, role=None):
         state = read_json(state_path)
         check_inputs(state, bid)
         batch = state["batches"][bid]
+        def reject(reason):
+            if candidate is not None:
+                batch.setdefault("delivery_pending", {})[file] = {"candidate": absolute(candidate), "reason": reason}
+                batch["summary"] = "候选稿待交付"
+                state["updated_at"] = now()
+                atomic_json(state_path, state)
+            return {"allowed": False, "published": False, "reason": reason, "file": file}
         reason = guard_reason(batch, file)
         if reason:
-            return {"allowed": False, "reason": reason, "file": file}
+            return reject(reason)
         if candidate is None:
             return {"allowed": True, "file": file, "note": "检查结果仅供参考；发布使用 --candidate 再次核验"}
         if role not in ROLES or batch["roles"][role]["status"] != "running":
@@ -221,31 +228,46 @@ def guard(run_dir, bid, file, candidate=None, role=None):
             raise ValueError("候选文件为空")
         target = Path(file)
         target.parent.mkdir(parents=True, exist_ok=True)
-        with exclusive_file(target) as (stream, existed):
-            original = stream.read()
-            old = batch["published"].get(file)
-            if existed and (not old or hashlib.sha256(original).hexdigest() != old["sha256"]):
-                return {"allowed": False, "reason": "发布前发现人工改动，保留原稿", "file": file}
-            if existed:
-                backup = state_path.parent / "备份" / (old["sha256"] + "_" + target.name)
-                backup.parent.mkdir(exist_ok=True)
-                if not backup.exists():
-                    backup.write_bytes(original)
-            try:
-                stream.seek(0)
-                stream.write(data)
-                stream.truncate()
-                stream.flush()
-                os.fsync(stream.fileno())
-            except OSError:
-                stream.seek(0)
-                stream.write(original)
-                stream.truncate()
-                raise
-        batch["published"][file] = {"sha256": hashlib.sha256(data).hexdigest(), "role": role, "at": now()}
+        try:
+            with exclusive_file(target) as (stream, existed):
+                original = stream.read()
+                old = batch["published"].get(file)
+                if existed and (not old or hashlib.sha256(original).hexdigest() != old["sha256"]):
+                    return reject("发布前发现人工改动，保留原稿")
+                if existed:
+                    backup = state_path.parent / "备份" / (old["sha256"] + "_" + target.name)
+                    backup.parent.mkdir(exist_ok=True)
+                    if not backup.exists():
+                        backup.write_bytes(original)
+                try:
+                    stream.seek(0)
+                    stream.write(data)
+                    stream.truncate()
+                    stream.flush()
+                    os.fsync(stream.fileno())
+                    stream.seek(0)
+                    if stream.read() != data:
+                        raise OSError("发布后的磁盘读回不一致")
+                except OSError:
+                    stream.seek(0)
+                    stream.write(original)
+                    stream.truncate()
+                    stream.flush()
+                    os.fsync(stream.fileno())
+                    raise
+            expected = hashlib.sha256(data).hexdigest()
+            if digest(target) != expected:
+                return reject("发布后文件已变化，保留候选稿并重新只读核验")
+        except OSError as error:
+            return reject(str(error))
+        batch["published"][file] = {"sha256": expected, "readback_sha256": expected,
+                                   "readback_at": now(), "role": role, "at": now()}
+        batch.get("delivery_pending", {}).pop(file, None)
+        batch["summary"] = summary(batch)
         state["updated_at"] = now()
         atomic_json(state_path, state)
-        return {"allowed": True, "published": True, "file": file, "sha256": batch["published"][file]["sha256"]}
+        return {"allowed": True, "published": True, "readback_verified": True,
+                "file": file, "sha256": batch["published"][file]["sha256"]}
 
 
 def ready(batch, role):
@@ -255,6 +277,8 @@ def ready(batch, role):
 
 def summary(batch):
     roles = batch["roles"]
+    if batch.get("delivery_pending"):
+        return "候选稿待交付"
     if roles["final"]["status"] == "done":
         return "验收完成"
     if any(r["status"] == "waiting_user" for r in roles.values()):
@@ -299,9 +323,12 @@ def record(run_dir, event):
             required_kinds = {"table": ("audit", "materials"), "writer": ("opinion",)}.get(role, ())
             for kind in required_kinds:
                 target = batch["output_paths"].get(kind)
-                baseline = batch["published"].get(target, {}).get("sha256") or batch.get("initial_existing", {}).get(target)
+                published = batch["published"].get(target, {})
+                baseline = published.get("sha256") or batch.get("initial_existing", {}).get(target)
                 if target not in artifacts or baseline is None or digest(target) != baseline:
                     raise ValueError("未交接受保护发布文件或只读确认的历史原稿：" + kind)
+                if target in batch.get("delivery_pending", {}) or (published and published.get("readback_sha256") != baseline):
+                    raise ValueError("成果尚未完成当前版本磁盘读回：" + kind)
             if role in {"review", "final"}:
                 report_path = absolute(event["check_report"])
                 report = read_json(report_path)
