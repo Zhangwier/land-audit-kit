@@ -39,12 +39,12 @@
     },
     {
       "path": "catalog/opinions.md",
-      "sha256": "f68f750c48113c47fa45b8ff617e68b7e2618e1b74cf66118e8abd34b090602d",
+      "sha256": "66d52ca5615605e2973344c41d4df20ff105ef4c822090f3b7aee5ad8f73cb14",
       "license": "CC-BY-4.0"
     },
     {
       "path": "catalog/opinions_catalog.json",
-      "sha256": "3af24529a36cd6375f1cc5915440bec4790c98f0ebc1cf174cf29814fa26b343",
+      "sha256": "538cd1b12f17e7f3b28013fb920922e82364727fe41bd2dce137fac09ecf0025",
       "license": "CC-BY-4.0"
     },
     {
