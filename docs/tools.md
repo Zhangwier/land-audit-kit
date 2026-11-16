@@ -5,6 +5,7 @@ Python 3.11+。`python -m pip install -r requirements.txt` 安装工具依赖。
 ## 读取、复算与定位
 
 - `python tools/excel_snapshot.py 输入.xlsx --output 新结果.json`：读取原值、公式、缓存与隐藏结构，不执行公式。
+- 工作簿报加密（BIFF8 FILEPASS 或 xlsx 加密包）时先试 Office 默认写保护口令再转换读值，不直接记为缺件：用 msoffcrypto 试默认口令解密，成功后用表格软件另存为 xlsx 再读；确属无法解密才记载体已收、内容未核，且不据此生成正式意见条目。
 - `python tools/decimal_recalc.py 输入.json --output 新结果.json`：Decimal 独立复算，数值用十进制字符串，未知用 null。示例见 `examples/recalc.json`；基数、比例和取位来源于当前依据。
 - `python tools/unzip_gbk.py 原件.zip 新目录`：中文文件名解压；来源副本另存。
 - PDF 定位、图面差异、Office 整包差异、证据索引用 `pdf_locator.py`、`pdf_inspect.py`、`redline_compare.py`、`office_package_diff.py`、`evidence_index.py` 的 `--help`。这些工具辅助定位和结构检查，图面判断须回看原图。

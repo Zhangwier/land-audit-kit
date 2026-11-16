@@ -24,7 +24,7 @@
     },
     {
       "path": "AI_README.md",
-      "sha256": "68c8494d3b89a093a84163efde51b88f220b4260c3a543dc920613db3940566c",
+      "sha256": "c68587de31d62327b775ed9b5f40971535922ea2ef323dfc60cabec9baea3e23",
       "license": "CC-BY-4.0"
     },
     {
@@ -39,12 +39,12 @@
     },
     {
       "path": "catalog/opinions.md",
-      "sha256": "66d52ca5615605e2973344c41d4df20ff105ef4c822090f3b7aee5ad8f73cb14",
+      "sha256": "7b3db0c1d631a062fd9c538d87b5ceecf4597593606c03ec8f043653493c7f45",
       "license": "CC-BY-4.0"
     },
     {
       "path": "catalog/opinions_catalog.json",
-      "sha256": "538cd1b12f17e7f3b28013fb920922e82364727fe41bd2dce137fac09ecf0025",
+      "sha256": "92db6928af9e86ae307c8e2d3f47bc67be70ef99ddd2496b10e2355f65da4227",
       "license": "CC-BY-4.0"
     },
     {
@@ -59,7 +59,7 @@
     },
     {
       "path": "docs/lessons.md",
-      "sha256": "7e59e4528e70f2a3cd3e2877adc51e812271b6814ca908243dea5970aaa0f131",
+      "sha256": "f5a810e2a53fc943994461d3f7f6b3f31a119ff81b71a6f267812785d8d8ae39",
       "license": "CC-BY-4.0"
     },
     {
@@ -69,7 +69,7 @@
     },
     {
       "path": "docs/tools.md",
-      "sha256": "e9c4de962396d0617b39ac6a8d219a8139b8cece7f60d6906c9f209c7f8bcd0a",
+      "sha256": "0330f75d1f61022b1866b864af676cf9e8a16aa9ec02b1d60f16ea0b5e605a91",
       "license": "CC-BY-4.0"
     },
     {
@@ -139,12 +139,12 @@
     },
     {
       "path": "rules/audit.md",
-      "sha256": "3947d5a378ee819ace64f87ce66054ea9eaea40c0c50f0e50880c340e904d264",
+      "sha256": "d4536c948311a490267cd8d02f52679910d0c17ea8653cb3d0b45ae2ebacdb21",
       "license": "CC-BY-4.0"
     },
     {
       "path": "rules/format.md",
-      "sha256": "7e333ab9f45fcbb510104b07d326bb7d17315d301649fe3c2e0a101e1f623677",
+      "sha256": "2898f9d31fb406ceb2da696565d9f23be08ccde72e9c642181050426e634b989",
       "license": "CC-BY-4.0"
     },
     {
