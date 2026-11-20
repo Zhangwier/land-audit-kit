@@ -86,6 +86,8 @@ materials 的 carrier=electronic/scan/both/na/missing/unknown，content_status �
 
 Gemini 分组结果：`python tools/check_outputs.py split --input 批次清单.json --response 组审核.md --output 新报告.json`。清单每项 batch/output，以完整 `## 批次：` 标题对应，报告 completed/missing/duplicate/unexpected/protected_conflicts；缺节单独续做，不按返回顺序猜批次。
 
+排版折行检查：`python tools/wrap_check.py 导出.pdf [更多.pdf] [--json 报告.json]`。逐行比对导出 PDF 的文字行框，左边界对齐、行距正常但上一行右侧仍有余量时，判为单元格被压窄导致的被迫折行。退出码 0 表示未发现，2 表示存在可疑折行，1 为参数或依赖错误。它只看折行形态，不判断文字对错；表格列宽行高仍须按 `../rules/format.md` 的版式条款调整后重新导出。
+
 ## 回归与公开包
 
 将 LAND_AUDIT_TEST_DIR 设置为本次工作目录，运行 `python -m unittest discover -s tools/tests`；测试只清自己的临时样本。选配 LAND_AUDIT_GEMINI_BRIDGE 指向已有本机 Gemini CLI 可运行模拟恢复和真实多进程锁测试，不上传业务。

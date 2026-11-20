@@ -24,7 +24,7 @@
     },
     {
       "path": "AI_README.md",
-      "sha256": "c68587de31d62327b775ed9b5f40971535922ea2ef323dfc60cabec9baea3e23",
+      "sha256": "b48fd706849403feb81d397a903c67479ff421bf70f7a1dc57b221bb951f0178",
       "license": "CC-BY-4.0"
     },
     {
@@ -39,12 +39,12 @@
     },
     {
       "path": "catalog/opinions.md",
-      "sha256": "7b3db0c1d631a062fd9c538d87b5ceecf4597593606c03ec8f043653493c7f45",
+      "sha256": "669ebc4fb5fc7809eaa522e3f375a74101a51836c2128c61e5797554e7a5fccc",
       "license": "CC-BY-4.0"
     },
     {
       "path": "catalog/opinions_catalog.json",
-      "sha256": "92db6928af9e86ae307c8e2d3f47bc67be70ef99ddd2496b10e2355f65da4227",
+      "sha256": "981744b6b2eeb778bc9cc8481da7d6b14ee86e79e21db3aab631ed538ac5a65f",
       "license": "CC-BY-4.0"
     },
     {
@@ -59,7 +59,7 @@
     },
     {
       "path": "docs/lessons.md",
-      "sha256": "f5a810e2a53fc943994461d3f7f6b3f31a119ff81b71a6f267812785d8d8ae39",
+      "sha256": "818027c1178430d9ed35765aa7d539c19a3302fea3d16f6a219677359a515bec",
       "license": "CC-BY-4.0"
     },
     {
@@ -69,7 +69,7 @@
     },
     {
       "path": "docs/tools.md",
-      "sha256": "0330f75d1f61022b1866b864af676cf9e8a16aa9ec02b1d60f16ea0b5e605a91",
+      "sha256": "f21a73f0640cadbf76642e0b361c26da1c996a2af8a415a4d58f2d651ca1b656",
       "license": "CC-BY-4.0"
     },
     {
@@ -144,7 +144,7 @@
     },
     {
       "path": "rules/format.md",
-      "sha256": "2898f9d31fb406ceb2da696565d9f23be08ccde72e9c642181050426e634b989",
+      "sha256": "290cb393fb38ae0563d441d5f647bfd02540cadfbe4eb2567cebce13be94635e",
       "license": "CC-BY-4.0"
     },
     {
@@ -293,6 +293,11 @@
       "license": "MIT"
     },
     {
+      "path": "tools/tests/test_wrap_check.py",
+      "sha256": "8a6863ede2e4b969ba6dfd1bcb25de2c2803c6f53641265f94f1e778759dacc4",
+      "license": "MIT"
+    },
+    {
       "path": "tools/unzip_gbk.py",
       "sha256": "5c9e10a48afb6f926645a059ceeaedfe7fba8822348e3eeb3b3f2f9ee283eaee",
       "license": "MIT"
@@ -300,6 +305,11 @@
     {
       "path": "tools/workflow_state.py",
       "sha256": "9f90b107a3f8d2e83a06f220499ba5c0b1f35448727f4d8ba9ea1ee2c47c0d74",
+      "license": "MIT"
+    },
+    {
+      "path": "tools/wrap_check.py",
+      "sha256": "28d6a209f2274596b3d4b1e4d4175aa7525dd15b6a15c7be3acfc2acfcf6cca9",
       "license": "MIT"
     },
     {
